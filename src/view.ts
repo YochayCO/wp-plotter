@@ -1,44 +1,59 @@
-/**
- * WordPress dependencies
- */
+import Papa from 'papaparse';
 import { store, getContext } from '@wordpress/interactivity';
 
 type ServerState = {
 	state: {
-		isDark: boolean;
-		darkText: string;
-		lightText: string;
+		urlBase: string;
 	};
 };
 
 type Context = {
-	isOpen: boolean;
+	isXSelected: boolean;
+	isYSelected: boolean;
 };
 
 const storeDef = {
-	state: {
-		get themeText(): string {
-			return state.isDark ? state.darkText : state.lightText;
-		},
-	},
+	state: {},
 	actions: {
-		toggleOpen() {
-			const context = getContext< Context >();
-			context.isOpen = ! context.isOpen;
+		toggleX() {
+			const context = getContext<Context>();
+			context.isXSelected = !context.isXSelected;
 		},
-		toggleTheme() {
-			state.isDark = ! state.isDark;
+		toggleY() {
+			const context = getContext<Context>();
+			context.isYSelected = !context.isYSelected;
 		},
 	},
 	callbacks: {
-		logIsOpen: () => {
-			const { isOpen } = getContext< Context >();
-			// Log the value of `isOpen` each time it changes.
-			console.log( `Is open: ${ isOpen }` );
+		// Runs due to watcher.
+		// TODO: Save the processed data in context.
+		loadGraph: async () => {
+			const { isXSelected, isYSelected } = getContext<Context>();
+
+			if (isXSelected && isYSelected) {
+				const url = '/wp-content/uploads/2024/10/2022_STATA-1.csv' // TODO: calculate by Survey, X, Y. Use state.urlBase
+				
+				try {
+					console.log('Fetching data...');
+					Papa.parse(url, {
+						header: true,
+						download: true,
+						complete: function (results) {
+							console.log('Result:', results);
+						}
+					});
+				} catch (error) {
+					console.error(error);
+				}
+			}
 		},
+		isGraphVisible: () => {
+			const { isXSelected, isYSelected } = getContext<Context>();
+			return isXSelected && isYSelected;
+		}
 	},
 };
 
 type Store = ServerState & typeof storeDef;
 
-const { state } = store< Store >( 'plotter-ts', storeDef );
+const { state } = store<Store>( 'plotter-ts', storeDef );

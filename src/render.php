@@ -10,47 +10,45 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
-// Generates a unique id for aria-controls.
-$unique_id = wp_unique_id( 'p-' );
-
-// Adds the global state.
-wp_interactivity_state(
-	'plotter-ts',
-	array(
-		'isDark'    => false,
-		'darkText'  => esc_html__( 'Switch to Light', 'plotter-ts' ),
-		'lightText' => esc_html__( 'Switch to Dark', 'plotter-ts' ),
-		'themeText'	=> esc_html__( 'Switch to Dark', 'plotter-ts' ),
-	)
-);
+	// Adds the global state.
+	wp_interactivity_state(
+		'plotter-ts',
+		array(
+			'urlBase' => '/',
+		)
+	);
+	
+	// Initialize context
+	$ctx = array( 'isXSelected' => false, 'isYSelected' => false );
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes(); ?>
+	<?php echo get_block_wrapper_attributes() ?>
 	data-wp-interactive="plotter-ts"
-	<?php echo wp_interactivity_data_wp_context( array( 'isOpen' => false ) ); ?>
-	data-wp-watch="callbacks.logIsOpen"
-	data-wp-class--dark-theme="state.isDark"
+	<?php echo wp_interactivity_data_wp_context($ctx) ?>
+	data-wp-watch="callbacks.loadGraph"
 >
-	<button
-		data-wp-on--click="actions.toggleTheme"
-		data-wp-text="state.themeText"
-	></button>
+	<p>
+		X param:
+		<input
+			type="checkbox"
+			aria-label="X param"
+			data-wp-on--click="actions.toggleX"
+		/>
+		<span data-wp-bind--hidden="!context.isXSelected">X is selected</span>
+	</p>
+	
+	<p>
+		Y param:
+		<input
+			type="checkbox"
+			aria-label="Y param"
+			data-wp-on--click="actions.toggleY"
+		/>
+		<span data-wp-bind--hidden="!context.isYSelected">Y is selected</span>
+	</p>
 
-	<button
-		data-wp-on--click="actions.toggleOpen"
-		data-wp-bind--aria-expanded="context.isOpen"
-		aria-controls="<?php echo esc_attr( $unique_id ); ?>"
-	>
-		<?php esc_html_e( 'Toggle', 'plotter-ts' ); ?>
-	</button>
-
-	<p
-		id="<?php echo esc_attr( $unique_id ); ?>"
-		data-wp-bind--hidden="!context.isOpen"
-	>
-		<?php
-			esc_html_e( 'Plotter - hello from an interactive block!', 'plotter-ts' );
-		?>
+	<p data-wp-bind--hidden="!callbacks.isGraphVisible">
+		A graph will be shown here
 	</p>
 </div>

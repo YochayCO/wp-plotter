@@ -28,9 +28,10 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function Edit( { attributes, setAttributes } ) {
 	const blockProps = useBlockProps();
 
+	// TODO: create a component that configures the url folder and puts it in the state
 	return (
 		<p { ...blockProps }>
-			{ __( 'Plotter – hello from the editor!', 'plotter-ts' ) }
+			{ __( 'Plotter block - locate in your website and go to preview', 'plotter-ts' ) }
 		</p>
 	);
 }
