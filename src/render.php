@@ -11,42 +11,66 @@
  */
 
 	// Adds the global state.
-	wp_interactivity_state(
-		'plotter-ts',
-		array(
-			'urlBase' => '/',
-		)
-	);
+	wp_interactivity_state( 'plotter-ts', array( 'urlBase' => '/' ) );
 	
 	// Initialize context
-	$ctx = array( 'isXSelected' => false, 'isYSelected' => false );
+	$questionItems = array(
+		array(
+			'column' => 'v52a',
+			'description' => 'What is your attitude toward each of the following people? / Benjamin Netanyahu',
+			'type' => 'quantity',
+			'range' => array(
+				'0' => 'rejection/hatred',
+				'10' => 'support/sympathy'
+			)
+		),
+		array(
+			'column' => 'v111',
+			'description' => 'Where would you rank yourself along a left-right continuum, where 1 is the right end and 7 is the left end?',
+			'type' => 'quantity',
+			'range' => array(
+				'1' => 'Right',
+				'7' => 'Left'
+			)
+		),
+	);
+
+	$context = array(
+		'xValue' => '',
+		'yValue' => '',
+		'questionItems' => $questionItems,
+	);
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes() ?>
 	data-wp-interactive="plotter-ts"
-	<?php echo wp_interactivity_data_wp_context($ctx) ?>
+	<?php echo wp_interactivity_data_wp_context($context) ?>
 	data-wp-watch="callbacks.loadGraph"
 >
-	<p>
-		X param:
-		<input
-			type="checkbox"
-			aria-label="X param"
-			data-wp-on--click="actions.toggleX"
-		/>
-		<span data-wp-bind--hidden="!context.isXSelected">X is selected</span>
-	</p>
-	
-	<p>
-		Y param:
-		<input
-			type="checkbox"
-			aria-label="Y param"
-			data-wp-on--click="actions.toggleY"
-		/>
-		<span data-wp-bind--hidden="!context.isYSelected">Y is selected</span>
-	</p>
+	<div style="margin: 8px; width: 100%;">
+        <label for="select-x">Select X</label>
+        <select id="select-x" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectX">
+            <option value="">Select X</option>
+            <?php foreach ($context['questionItems'] as $item) : ?>
+                <option value="<?php echo $item['column']; ?>">
+                    <?php echo $item['description']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+	<div style="margin: 8px; width: 100%;">
+        <label for="select-y">Select Y</label>
+        <select id="select-y" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectY">
+            <option value="">Select Y</option>
+            <?php foreach ($context['questionItems'] as $item) : ?>
+                <option value="<?php echo $item['column']; ?>">
+                    <?php echo $item['description']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
 	<p data-wp-bind--hidden="!callbacks.isGraphVisible">
 		A graph will be shown here
