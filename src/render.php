@@ -35,10 +35,18 @@
 		),
 	);
 
+	$surveys = array( array( 'id' => '2022', 'name' => '2022 Survey' ) );
+
 	$context = array(
 		'xValue' => '',
 		'yValue' => '',
+		'surveyId' => '',
 		'questionItems' => $questionItems,
+		'surveys' => $surveys,
+		'survey' => array(
+			'meta' => null,
+			'data' => null,
+		)
 	);
 ?>
 
@@ -46,8 +54,21 @@
 	<?php echo get_block_wrapper_attributes() ?>
 	data-wp-interactive="plotter-ts"
 	<?php echo wp_interactivity_data_wp_context($context) ?>
-	data-wp-watch="callbacks.loadGraph"
+	data-wp-watch="actions.updateGraph"
 >
+
+	<div style="margin: 8px; width: 100%;">
+        <label for="select-x">Select survey</label>
+        <select id="select-survey" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectSurvey">
+            <option value="">Select survey</option>
+            <?php foreach ($context['surveys'] as $item) : ?>
+                <option value="<?php echo $item['id']; ?>">
+                    <?php echo $item['name']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+	
 	<div style="margin: 8px; width: 100%;">
         <label for="select-x">Select X</label>
         <select id="select-x" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectX">
@@ -72,7 +93,7 @@
         </select>
     </div>
 
-	<p data-wp-bind--hidden="!callbacks.isGraphVisible">
+	<p data-wp-bind--hidden="!extraContext.isGraphVisible">
 		A graph will be shown here
 	</p>
 </div>
