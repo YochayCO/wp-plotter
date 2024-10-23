@@ -1,4 +1,5 @@
-import { SurveyData, SurveyMeta } from "./survey";
+import { QuestionItem } from "./question";
+import { SurveyData, SurveyMeta, SurveyOption } from "./survey";
 
 // Global state
 export type ServerState = {
@@ -9,11 +10,13 @@ export type ServerState = {
 
 // Local state
 export type Context = {
-    surveyId: string;
 	xValue: string;
 	yValue: string;
+    surveyId: string;
+    questionItems: QuestionItem[];
+    surveyOptions: SurveyOption[];
     survey?: {
         data: SurveyData;
         meta: SurveyMeta;
-    }
+    };
 };

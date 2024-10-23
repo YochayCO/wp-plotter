@@ -38,3 +38,8 @@ export type Survey = {
     data: SurveyData;
     meta: SurveyMeta;
 }
+
+export type SurveyOption = {
+    id: string;
+    name: string;
+}

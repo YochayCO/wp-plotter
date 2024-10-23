@@ -11,6 +11,12 @@ async function updateGraph () {
     }
 }
 
+function cleanSurvey() {
+    const context = getContext<Context>();
+    context.xValue = '';
+    context.yValue = '';
+    context.survey = undefined;
+}
 function selectX(event: Event) {
     const context = getContext<Context>();
     context.xValue = (event.target as HTMLSelectElement)?.value || '';
@@ -24,10 +30,13 @@ function selectY(event: Event) {
 async function selectSurvey (event: Event) {
     const context = getContext<Context>();
     context.surveyId = (event.target as HTMLSelectElement)?.value || '';
-    context.survey = undefined;
-    
-    if (!context.surveyId) return;
 
+    if (!context.surveyId) {
+        cleanSurvey()
+        return;
+    }
+
+    context.survey = undefined;
     const survey = await fetchSurveyData(context.surveyId);
     context.survey = survey;
 }

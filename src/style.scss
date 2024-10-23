@@ -24,4 +24,12 @@
 			color: #ddd;
 		}
 	}
+
+	.default-invisible {
+		display: none;
+
+		&.visible {
+			display: inline-block;
+		}
+	}
 }

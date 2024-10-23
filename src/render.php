@@ -35,18 +35,15 @@
 		),
 	);
 
-	$surveys = array( array( 'id' => '2022', 'name' => '2022 Survey' ) );
+	$surveyOptions = array( array( 'id' => '2022', 'name' => '2022 Survey' ) );
 
 	$context = array(
 		'xValue' => '',
 		'yValue' => '',
 		'surveyId' => '',
 		'questionItems' => $questionItems,
-		'surveys' => $surveys,
-		'survey' => array(
-			'meta' => null,
-			'data' => null,
-		)
+		'surveyOptions' => $surveyOptions,
+		'survey' => null,
 	);
 ?>
 
@@ -61,39 +58,41 @@
         <label for="select-x">Select survey</label>
         <select id="select-survey" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectSurvey">
             <option value="">Select survey</option>
-            <?php foreach ($context['surveys'] as $item) : ?>
-                <option value="<?php echo $item['id']; ?>">
-                    <?php echo $item['name']; ?>
+            <?php foreach ($context['surveyOptions'] as $option) : ?>
+                <option value="<?php echo $option['id']; ?>">
+                    <?php echo $option['name']; ?>
                 </option>
             <?php endforeach; ?>
         </select>
     </div>
 	
-	<div style="margin: 8px; width: 100%;">
-        <label for="select-x">Select X</label>
-        <select id="select-x" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectX">
-            <option value="">Select X</option>
-            <?php foreach ($context['questionItems'] as $item) : ?>
-                <option value="<?php echo $item['column']; ?>">
-                    <?php echo $item['description']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-	<div style="margin: 8px; width: 100%;">
-        <label for="select-y">Select Y</label>
-        <select id="select-y" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectY">
-            <option value="">Select Y</option>
-            <?php foreach ($context['questionItems'] as $item) : ?>
-                <option value="<?php echo $item['column']; ?>">
-                    <?php echo $item['description']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-	<p data-wp-bind--hidden="!extraContext.isGraphVisible">
-		A graph will be shown here
-	</p>
+	<div class="default-invisible" data-wp-class--visible="extraContext.isSurveyLoaded">
+		<div style="margin: 8px; width: 100%;">
+			<label for="select-x">Select X</label>
+			<select id="select-x" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectX">
+				<option value="">Select X</option>
+				<?php foreach ($context['questionItems'] as $item) : ?>
+					<option value="<?php echo $item['column']; ?>">
+						<?php echo $item['description']; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	
+		<div style="margin: 8px; width: 100%;">
+			<label for="select-y">Select Y</label>
+			<select id="select-y" name="select_value" style="width: 100%;" data-wp-on--change="actions.selectY">
+				<option value="">Select Y</option>
+				<?php foreach ($context['questionItems'] as $item) : ?>
+					<option value="<?php echo $item['column']; ?>">
+						<?php echo $item['description']; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	
+		<p class="default-invisible" data-wp-class--visible="extraContext.isGraphVisible">
+			A graph will be shown here
+		</p>
+	</div>
 </div>
