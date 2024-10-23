@@ -1,35 +1,86 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+// Base Styles
+$font-stack: 'Roboto', sans-serif;
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$background-color: #ecf0f1;
+$input-background-color: #f8f9fa;
+$input-border-color: #bdc3c7;
+$text-color: #2c3e50;
 
-.wp-block-plotter-ts-plotter-ts {
-	font-size: 1em;
-	background: #ffff001a;
-	padding: 1em;
+// Container Styling
+[data-wp-interactive="plotter-ts"] {
+  font-family: $font-stack;
+  padding: 16px;
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-	&.dark-theme {
-		background: #333;
-		color: #fff;
+  label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: $text-color;
+  }
 
-		button {
-			background: #555;
-			color: #fff;
-			border: 1px solid #777;
-		}
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: $text-color;
+    background-color: $input-background-color;
+    border: 1px solid $input-border-color;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
 
-		p {
-			color: #ddd;
-		}
-	}
+    &:hover {
+      border-color: $primary-color;
+    }
 
-	.default-invisible {
-		display: none;
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+      box-shadow: 0 0 3px rgba(52, 152, 219, 0.5);
+    }
+  }
 
-		&.visible {
-			display: inline-block;
-		}
-	}
+  .default-invisible {
+    display: none;
+    &.visible {
+      display: inline-block;
+    }
+  }
+
+  p {
+    font-size: 16px;
+    margin-top: 16px;
+    color: $secondary-color;
+  }
+
+  // Margin and Spacing Adjustments for Layout
+  .select-container {
+    margin-bottom: 16px;
+  }
+
+  .select-container:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 768px) {
+  [data-wp-interactive="plotter-ts"] {
+    padding: 12px;
+
+    select {
+      font-size: 14px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
 }
