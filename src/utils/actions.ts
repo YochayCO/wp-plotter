@@ -42,9 +42,9 @@ async function selectSurvey (event: Event) {
 }
 
 const actions = {
-    selectX,
-    selectY,
-    selectSurvey,
+    handleSelectX: selectX,
+    handleSelectY: selectY,
+    handleSelectSurvey: selectSurvey,
     updateGraph,
 }
 
