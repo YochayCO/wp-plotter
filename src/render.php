@@ -60,7 +60,7 @@
 			<label for="select-y">Select Y</label>
 			<select id="select-y" name="select_value" data-wp-bind--value="context.yValue" data-wp-on--change="actions.handleSelectY">
 				<option value="">Select Y</option>
-				<template data-wp-each="extraContext.categoryQuestionItems">
+				<template data-wp-each="extraContext.quantityQuestionItems">
 					<option data-wp-bind--value="context.item.column" data-wp-text="context.item.description"></option>
 				</template>
 			</select>

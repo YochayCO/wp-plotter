@@ -16,9 +16,9 @@ function questionItems (): QuestionItem[] {
     const { survey } = getContext<Context>();
     return survey ? Object.values(survey.meta.questionDefs) : [];
 }
-function categoryQuestionItems (): QuestionItem[] {
+function quantityQuestionItems (): QuestionItem[] {
     const qis = questionItems()
-    return qis.filter(qi => qi.type === 'category');
+    return qis.filter(qi => qi.type !== 'category');
 }
 
 // computables
@@ -26,5 +26,5 @@ export default {
     isGraphVisible,
     isSurveyLoaded,
     questionItems,
-    categoryQuestionItems,
+    quantityQuestionItems,
 }
