@@ -43,7 +43,6 @@ export async function fetchSurveyData(surveyId: string): Promise<Survey> {
         const meta = metaRes as SurveyMeta;
         return Promise.resolve({ data, meta })
     } catch (error) {
-        console.error("Error fetching data:", error);
         return Promise.reject(error);
     }
 }

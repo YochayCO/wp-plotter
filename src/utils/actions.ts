@@ -11,6 +11,7 @@ async function updateGraph () {
     }
 }
 
+// Note: Do not clean surveyId, since the function is used for cleaning between surveys as well
 function cleanSurvey() {
     const context = getContext<Context>();
     context.xValue = '';
@@ -30,15 +31,15 @@ function selectY(event: Event) {
 async function selectSurvey (event: Event) {
     const context = getContext<Context>();
     context.surveyId = (event.target as HTMLSelectElement)?.value || '';
+    cleanSurvey()
 
-    if (!context.surveyId) {
-        cleanSurvey()
-        return;
+    if (!context.surveyId) return;
+
+    try {
+        context.survey = await fetchSurveyData(context.surveyId);
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
-
-    context.survey = undefined;
-    const survey = await fetchSurveyData(context.surveyId);
-    context.survey = survey;
 }
 
 const actions = {

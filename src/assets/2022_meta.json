@@ -21,7 +21,7 @@
             "post": "w_arabs_panel2"
         }
     },
-    "questions": {
+    "questionDefs": {
         "V52A": {
             "column": "v52a",
             "description": "What is your attitude toward each of the following people? / Benjamin Netanyahu",

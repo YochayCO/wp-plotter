@@ -23,7 +23,7 @@ export interface SurveyMeta {
             post: string;
         } | string;
     };
-    questions: {
+    questionDefs: {
         [key: number | string]: QuestionItem;
     }
 }
