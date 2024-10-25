@@ -1,6 +1,7 @@
 import Papa from 'papaparse';
 import SURVEY_META_JSON from '../assets/2022_meta.json'
-import { Survey, SurveyData, SurveyMeta } from '../types/survey';
+import { Survey, SurveyRows, SurveyMeta } from '../types/survey';
+import { cleanSurvey } from './survey';
 
 type CSVData = any[];
 type JSONData = Record<string, any>;
@@ -10,7 +11,10 @@ async function fetchCSV(url: string): Promise<CSVData> {
         Papa.parse(url, {
             download: true,
             header: true,
-            complete: (result) => resolve(result.data),
+            complete: ({ data, errors }) => {
+                const cleanedData = cleanSurvey(data, errors);
+                resolve(cleanedData);
+            },
             error: (error) => reject(error),
         });
     });
@@ -39,7 +43,7 @@ export async function fetchSurveyData(surveyId: string): Promise<Survey> {
             fetchJSON(metaUrl)
         ]);
 
-        const data = dataRes as SurveyData;
+        const data = dataRes as SurveyRows;
         const meta = metaRes as SurveyMeta;
         return Promise.resolve({ data, meta })
     } catch (error) {

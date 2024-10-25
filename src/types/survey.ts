@@ -28,17 +28,18 @@ export interface SurveyMeta {
     }
 }
 
-export interface SurveyDataPoint {
-    [columnTitle: string]: number;
+export interface SurveyRow {
+    [columnTitle: string]: any;
 }
 
-export type SurveyData = SurveyDataPoint[];
+export type SurveyRows = SurveyRow[];
 
 export type Survey = {
-    data: SurveyData;
+    data: SurveyRows;
     meta: SurveyMeta;
 }
 
+// Option for survey select element
 export type SurveyOption = {
     id: string;
     name: string;
