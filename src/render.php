@@ -66,8 +66,40 @@
 			</select>
 		</div>
 	
-		<p class="default-invisible" data-wp-class--visible="extraContext.isGraphVisible">
-			A graph will be shown here
-		</p>
+		<!-- TODO: create real interactive graph -->
+		<div class="default-invisible" data-wp-class--visible="extraContext.isGraphVisible">
+			<div id="plot-container">
+				<svg width='100%' height=400px>
+					<g transform="translate(50, 30)">
+						<g data-wp-bind--transform="componentProps.translation">
+							<line
+								data-wp-bind--x1="componentProps.xScale.halfWidth"
+								data-wp-bind--x2="componentProps.xScale.halfWidth"
+								data-wp-bind--y1="componentProps.yScale.min"
+								data-wp-bind--y2="componentProps.yScale.max"
+								stroke="black"
+								width=40
+							/>
+							<rect
+								x="0"
+								data-wp-bind--y="componentProps.yScale.q3"
+								data-wp-bind--width="componentProps.xScale.width"
+								data-wp-bind--height="componentProps.yScale.boxHeight"
+								stroke="black"
+								fill="#ead4f5"
+							/>
+							<line
+								x1="0"
+								data-wp-bind--x2="componentProps.xScale.width"
+								data-wp-bind--y1="componentProps.yScale.median"
+								data-wp-bind--y2="componentProps.yScale.median"
+								stroke="black"
+								width=40
+							/>
+						</g>
+					</g>
+				</svg>
+			</div>
+		</div>
 	</div>
 </div>

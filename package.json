@@ -19,9 +19,13 @@
 	],
 	"dependencies": {
 		"@wordpress/interactivity": "^6.10.0",
+		"d3": "^7.9.0",
+		"lodash": "^4.17.21",
 		"papaparse": "^5.4.1"
 	},
 	"devDependencies": {
+		"@types/d3": "^7.4.3",
+		"@types/lodash": "^4.17.12",
 		"@types/papaparse": "^5.3.15",
 		"@wordpress/scripts": "^30.3.0"
 	}

@@ -1,15 +1,7 @@
 import { getContext } from '@wordpress/interactivity';
 import { Context } from '../types/state';
 import { fetchSurveyData } from './api';
-import { isGraphVisible } from './extraContext';
-
-// Runs due to watcher.
-async function updateGraph () {
-    const { xValue, yValue, survey } = getContext<Context>();
-    if (isGraphVisible()) {
-        console.log(xValue, yValue, survey);
-    }
-}
+import { updateGraph } from './graph';
 
 // Note: Do not clean surveyId, since the function is used for cleaning between surveys as well
 function cleanSurvey() {

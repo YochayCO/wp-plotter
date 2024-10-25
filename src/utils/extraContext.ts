@@ -3,8 +3,8 @@ import { Context } from '../types/state';
 import { QuestionItem } from '../types/question';
 
 export function isGraphVisible () {
-    const { xValue, yValue, survey } = getContext<Context>();
-    return xValue && yValue && !!isSurveyLoaded();
+    const { xValue, yValue } = getContext<Context>();
+    return xValue && yValue && isSurveyLoaded();
 }
 
 function isSurveyLoaded () {
